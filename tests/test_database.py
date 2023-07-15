@@ -6,8 +6,8 @@ from ..src import database
 from ..src import utils
 
 
-@pytest.fixture
-def database(scope="function"):
+@pytest.fixture(scope="function")
+def database():
     # setup
     credentials = utils.read_credentials()
 
