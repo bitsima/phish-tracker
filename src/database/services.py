@@ -5,7 +5,7 @@ from . import _database
 from . import models
 
 
-def create_schema():
+def add_tables():
     database = _database.Base.metadata.create_all(bind=_database.engine)
     return database
 
@@ -14,6 +14,7 @@ def add_to_db(
     PhishTank_id: Integer,
     url: String,
     status: Enum,
+    is_online: Enum,
     added_at: String,
     description: String,
     submitted_by: String,
@@ -24,6 +25,7 @@ def add_to_db(
         PhishTank_id=PhishTank_id,
         url=url,
         status=status,
+        is_online=is_online,
         added_at=added_at,
         description=description,
         submitted_by=submitted_by,

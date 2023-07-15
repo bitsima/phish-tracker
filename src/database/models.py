@@ -2,15 +2,16 @@ from sqlalchemy import Column, Enum, Integer, String
 
 import datetime
 
-import database
+from . import database
 
 
-class PhishingSite(Base):
+class PhishingSite(database.Base):
     __tablename__ = "phishing_sites"
 
     PhishTank_id = Column(Integer, primary_key=True, index=True)
     url = Column(String, nullable=False)
     status = Column(Enum("Suspected", "Valid"), nullable=False)
+    is_online = Column(Enum("True", "False"))
     submitted_at = Column(String, nullable=False)
     description = Column(String)
     submitted_by = Column(String, nullable=False)
