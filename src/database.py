@@ -10,17 +10,24 @@ Base = declarative_base()
 
 
 class PhishingSite(Base):
-    __tablename__ = 'phishing_sites'
+    __tablename__ = "phishing_sites"
 
     PhishTank_id = Column(Integer, primary_key=True)
     url = Column(String, nullable=False)
-    status = Column(Enum('Suspected', 'Valid'), nullable=False)
+    status = Column(Enum("Suspected", "Valid"), nullable=False)
     added_at = Column(String, nullable=False)
     description = Column(String)
     submitted_by = Column(String, nullable=False)
 
 
-def add_to_db(PhishTank_id: int, url: str, status: Enum, added_at: str, description: str, submitted_by: str) -> None:
+def add_to_db(
+    PhishTank_id: int,
+    url: str,
+    status: Enum,
+    added_at: str,
+    description: str,
+    submitted_by: str,
+) -> None:
     session = Session()
 
     new_site = PhishingSite(
@@ -29,7 +36,7 @@ def add_to_db(PhishTank_id: int, url: str, status: Enum, added_at: str, descript
         status=status,
         added_at=added_at,
         description=description,
-        submitted_by=submitted_by
+        submitted_by=submitted_by,
     )
 
     session.add(new_site)
@@ -44,6 +51,7 @@ def remove_from_db(PhishTank_id: int) -> None:
 credentials = read_credentials()
 
 engine = create_engine(
-    f'postgresql+psycopg2://{credentials[0]}:{credentials[1]}@localhost:5432/database')
+    f"postgresql+psycopg2://{credentials[0]}:{credentials[1]}@localhost:5432/database"
+)
 
 Session = sessionmaker(bind=engine)
