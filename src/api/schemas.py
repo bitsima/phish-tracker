@@ -1,7 +1,17 @@
 from pydantic import BaseModel
 from sqlalchemy import Enum
 
-import datetime
+from datetime import datetime
+
+
+class StatusEnum(Enum):
+    SUSPECTED = "Suspected"
+    VALID = "Valid"
+
+
+class IsOnlineEnum(Enum):
+    TRUE = "True"
+    FALSE = "False"
 
 
 class PhishingSiteCreate(BaseModel):
@@ -12,6 +22,18 @@ class PhishingSiteCreate(BaseModel):
     submitted_at: str
     submitted_by: str
 
+    class Config:
+        arbitrary_types_allowed = True
+
+
+class PhishingSiteUpdate(BaseModel):
+    status: Enum
+    is_online: Enum
+    description: str
+
+    class Config:
+        arbitrary_types_allowed = True
+
 
 class PhishingSite(PhishingSiteCreate):
     PhishTank_id: int
@@ -21,4 +43,7 @@ class PhishingSite(PhishingSiteCreate):
     submitted_at: str
     description: str
     submitted_by: str
-    date_created = datetime.datetime
+    date_created: datetime
+
+    class Config:
+        arbitrary_types_allowed = True
