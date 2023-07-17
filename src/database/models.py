@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Enum, Integer, String
+from sqlalchemy import Column, Integer, String
 
 import datetime
 
@@ -10,8 +10,8 @@ class PhishingSite(database.Base):
 
     PhishTank_id = Column(Integer, primary_key=True, index=True)
     url = Column(String, nullable=False)
-    status = Column(Enum("Suspected", "Valid"), nullable=False)
-    is_online = Column(Enum("True", "False"))
+    status = Column(String, nullable=False)
+    is_online = Column(String)
     submitted_at = Column(String, nullable=False)
     description = Column(String)
     submitted_by = Column(String, nullable=False)
