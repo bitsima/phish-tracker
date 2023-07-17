@@ -12,7 +12,8 @@ def database():
     credentials = utils.read_credentials()
 
     engine = create_engine(
-        f'postgresql+psycopg2://{credentials[0]}:{credentials[1]}@localhost:5432/database')
+        f"postgresql+psycopg2://{credentials[0]}:{credentials[1]}@localhost:5432/database"
+    )
 
     Session = sessionmaker(bind=engine)
     session = Session()
