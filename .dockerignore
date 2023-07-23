@@ -1,0 +1,14 @@
+# Exclude development files
+.git
+.gitignore
+.vscode
+*.pyc
+
+
+# Exclude other unnecessary files
+__pycache__/
+venv/
+*.log
+*.tmp
+
+README.md
