@@ -1,19 +1,6 @@
 from datetime import datetime
 
 
-def read_credentials() -> list[str]:
-    """Reads the database credentials from the config.ini file and returns them as a list{username, password}."""
-    with open("config.ini") as f:
-        credentials = f.read()
-
-    credentials = credentials.split("\n")[1:]
-    credentials = [x.split(" ")[-1] for x in credentials]
-    username = credentials[0]
-    password = credentials[1]
-
-    return [username, password]
-
-
 def get_timestamp(date: str) -> str:
     date_lst = date.split(" ")
     month_name = date_lst[2]
