@@ -1,7 +1,5 @@
-import uvicorn
+from .api import routes
+from .database import services
 
-from api import routes
-
-
-if __name__ == "__main__":
-    uvicorn.run(routes.app, host="localhost", port=8000)
+app = routes.app
+services.add_tables()

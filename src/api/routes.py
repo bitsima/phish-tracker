@@ -1,14 +1,14 @@
 import fastapi
 from sqlalchemy import orm
 
-from api.schemas import PhishingSiteCreate, PhishingSite
-from database import services
-import scraper
+from .schemas import PhishingSiteCreate, PhishingSite
+from ..database import services
+from .. import scraper
 
 app = fastapi.FastAPI()
 
 
-@app.get("/start-checks", response_model=dict)
+@app.get("/check-and-update", response_model=dict)
 async def start_checks(db: orm.Session = fastapi.Depends(services.get_db)):
     error_occurred = scraper.get_main_page()
     if not error_occurred:
@@ -40,24 +40,11 @@ async def get_sites(db: orm.Session = fastapi.Depends(services.get_db)):
     return await services.get_all_sites(db=db)
 
 
-@app.put("/phishing-sites/{PhishTank_id}/", response_model=PhishingSite)
-async def update_site(
-    PhishTank_id: int,
-    site_data: PhishingSiteCreate,
-    db: orm.Session = fastapi.Depends(services.get_db),
-):
-    site = await services.get_site(db=db, PhisTank_id=PhishTank_id)
-    if site is None:
-        raise fastapi.HTTPException(status_code=404, detail="Site does not exist.")
-
-    return await services.update_site(site_data=site_data, site=site, db=db)
-
-
 @app.delete("/phishing-sites/{PhishTank_id}/", response_model=dict)
 async def delete_site(
     PhishTank_id: int, db: orm.Session = fastapi.Depends(services.get_db)
 ):
-    site = await services.get_site(db=db, PhisTank_id=PhishTank_id)
+    site = await services.get_site(db=db, PhishTank_id=PhishTank_id)
     if site is None:
         raise fastapi.HTTPException(status_code=404, detail="Site does not exist.")
 

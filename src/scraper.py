@@ -6,9 +6,9 @@ import time
 import datetime
 import logging
 
-from api import schemas
-import logging_config
-import utils
+from .api import schemas
+from . import logging_config
+from . import utils
 
 # configuring the Logger object for the module
 logging_config.configure_logging()

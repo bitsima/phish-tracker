@@ -1,10 +1,9 @@
 from sqlalchemy import orm
 
-import time
 
 from . import database as _database
 from . import models
-from api import schemas
+from ..api import schemas
 
 
 def add_tables():
