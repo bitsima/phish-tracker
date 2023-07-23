@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  phish-tracker-web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - fastapi_database
+    env_file:
+      - .env
+
+  fastapi_database:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
