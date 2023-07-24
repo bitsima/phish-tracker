@@ -1,10 +1,9 @@
 import fastapi
 from sqlalchemy import orm
 
-from .schemas import PhishingSiteCreate, PhishingSite
+from .schemas import PhishingSite
 from ..database import services
 from .. import scraper
-from ..database import models
 
 app = fastapi.FastAPI()
 
