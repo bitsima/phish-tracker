@@ -51,3 +51,17 @@ def get_timestamp(date: str) -> str:
     dtime = datetime(int(year), int(month), int(day), hour, minutes)
 
     return str(dtime.timestamp())
+
+
+def status_formatter(status: str, is_online: str):
+    if len(is_online.split(" ")) == 3:
+        is_online = "ONLINE"
+    else:
+        is_online = "Offline"
+
+    if len(status.split(" ")) == 4:
+        status = "VALID PHISH"
+    else:
+        status = "Unknown"
+
+    return status, is_online
