@@ -31,3 +31,13 @@ class PhishingSite(PhishingSiteCreate):
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
+
+
+class PhishingSiteUpdate(BaseModel):
+    status: str
+    is_online: str
+    description: str
+
+    class Config:
+        arbitrary_types_allowed = True
+        from_attributes = True
