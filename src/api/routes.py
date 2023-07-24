@@ -4,11 +4,12 @@ from sqlalchemy import orm
 from .schemas import PhishingSiteCreate, PhishingSite
 from ..database import services
 from .. import scraper
+from ..database import models
 
 app = fastapi.FastAPI()
 
 
-@app.get("/check-and-update", response_model=dict)
+@app.get("/start-checks", response_model=dict)
 async def start_checks(db: orm.Session = fastapi.Depends(services.get_db)):
     error_occurred = scraper.get_main_page()
     if not error_occurred:
@@ -38,6 +39,20 @@ async def get_site(
 @app.get("/phishing-sites", response_model=list[PhishingSite])
 async def get_sites(db: orm.Session = fastapi.Depends(services.get_db)):
     return await services.get_all_sites(db=db)
+
+
+@app.get("/update-sites", response_model=dict)
+async def update_sites(db: orm.Session = fastapi.Depends(services.get_db)):
+    all_sites = await services.get_all_sites(db=db)
+    update_messages = dict()
+    for saved_site in all_sites:
+        site_data = scraper.get_updated_data(saved_site.PhishTank_id)
+        update_messages[saved_site.PhishTank_id] = await services.update_site(
+            site_data=site_data,
+            site=await services.get_site(saved_site.PhishTank_id, db=db),
+            db=db,
+        )
+    return update_messages
 
 
 @app.delete("/phishing-sites/{PhishTank_id}/", response_model=dict)
