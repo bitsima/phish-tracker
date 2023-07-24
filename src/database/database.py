@@ -5,8 +5,6 @@ from dotenv import load_dotenv
 
 import os
 
-from . import services
-
 load_dotenv()
 
 db_username = os.getenv("POSTGRES_USER")
